@@ -1,19 +1,18 @@
-#include "User.h" 
-
+#include "Source.h" 
+#include "Attack.cpp"
 class User
 {
 public:
-	
-	string name;         //переменна€ дл€ имени 
-    int hp;              //переменне€ дл€ здоровь€ 
-	int protection;      //переменна€ дл€ защиты 
-	int Class;           //переменна€ дл€ выбора класса  
+	string name="";      //переменна€ дл€ имени 
+    int hp=0;            //переменне€ дл€ здоровь€ 
+	int protection=0;    //переменна€ дл€ защиты 
+	int Class=0;         //переменна€ дл€ выбора класса  
 	int a = 1;           //костыль дл€ выбора кейса
 	const int count = 3; //количество персонажей
-
+	int person = 0;      //Ќомер выбранного класса персонажа 
 	void Enter()
 	{
-cout << "¬ведите им€ будущего персонажа: ";
+		cout << "¬ведите им€ будущего персонажа: ";
 		cin >> name;
 
 		cout << "¬ыберете класс за который будете играть:" << endl <<
@@ -23,7 +22,12 @@ cout << "¬ведите им€ будущего персонажа: ";
 		cin >> Class;
 
 		A:
-		if (Class<=3){}
+		if (Class<=3)
+		{
+			if (Class == 1) { person = 1; }
+			else if (Class == 2) { person = 2; }
+			else{ person = 3; }
+		}
 		else
 		{
 			error();
@@ -50,7 +54,6 @@ cout << "¬ведите им€ будущего персонажа: ";
 		{
 			cout << " “ы чурка ? ¬ыбери один из "<<count <<":";
 			cin >> Class;
-
 		}
 		default: 
 		{
@@ -59,9 +62,90 @@ cout << "¬ведите им€ будущего персонажа: ";
 		}
 		}
 	}
-
-
-
-
-
+	void Fight( User& UserBeta);
 };
+
+inline void User::Fight( User & UserBeta)// ќбработка битвы  
+{
+	int Att=0;
+	do 
+	{////////////////////////////////////////////////
+		switch (this->person)
+		{
+		case 1:
+		{
+			cout << "(урон:20-25) " << endl <<
+			        "(урон:15-40) " << endl <<
+			        "(урон:30-35) " << endl <<
+			        "(урон:15-20) " << endl;
+		    cin >> Att;
+			Attack(Att, UserBeta.hp, UserBeta.protection, UserBeta.person);
+		}
+		case 2:
+		{
+			cout << "(урон:15-20) " << endl <<
+				    "(урон:12-15) " << endl <<
+				    "(урон:30-40) " << endl <<
+				    "(урон:20-30) " << endl;
+			cin >> Att;
+			Attack(Att, UserBeta.hp, UserBeta.protection, UserBeta.person);
+		}
+		case 3:
+		{
+			cout << "(урон:10-30) " << endl <<
+				    "(урон:15-35) " << endl <<
+				    "(урон:20-40) " << endl <<
+				    "(урон:15-25) " << endl;
+			cin >> Att;
+			Attack(Att, UserBeta.hp, UserBeta.protection, UserBeta.person);
+		}
+		default:break;
+		}
+     /////////////////////////////////////////////////
+		switch (UserBeta.person)
+		{
+		case 1:
+		{
+			cout << "(урон:20-25) " << endl <<
+				    "(урон:15-40) " << endl <<
+				    "(урон:30-35) " << endl <<
+				    "(урон:15-20) " << endl;
+			cin >> Att;
+			Attack(Att, this->hp, this->protection, this->person);
+		}
+		case 2:
+		{
+			cout << "(урон:15-20) " << endl <<
+				    "(урон:12-15) " << endl <<
+				    "(урон:30-40) " << endl <<
+				    "(урон:20-30) " << endl;
+			cin >> Att;
+			Attack(Att, this->hp, this->protection, this->person);
+		}
+		case 3:
+		{
+			cout << "(урон:10-30) " << endl <<
+				    "(урон:15-35) " << endl <<
+				    "(урон:20-40) " << endl <<
+				    "(урон:15-25) " << endl;
+			cin >> Att;
+			Attack(Att, this->hp, this->protection, this->person);
+		}
+		default:break;
+		}
+
+	} while (this->hp<0 || UserBeta.hp < 0);
+
+	if (this->hp==0)
+	{
+		cout << "¬ыиграл:" << UserBeta.name << endl;
+	}
+	else
+	{
+		cout << "¬ыиграл:" << this->name << endl;
+	}
+
+}
+
+
+
