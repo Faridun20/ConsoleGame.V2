@@ -1,4 +1,5 @@
-﻿#include "Header.h" 
+﻿#include "Source.h" 
+#include "User.cpp"
 
 void error(int c, int& v)
 {
@@ -27,7 +28,7 @@ void error(int c, int& v)
 
 int main()
 {
-    setlocale(NULL, "rus");
+	setlocale(NULL, "rus");
 
     int	NumArr;//перменная для размера масссива класса
     int b=1;   //костыль для выбора кейса
@@ -44,14 +45,17 @@ int main()
 		goto A;
 	}
 
-    User * Player=new User[NumArr];
+	vector <User> Player(NumArr);
 
 	for (int i = 0; i < NumArr; i++)
 	{
 		Player[i].Enter();
 	}
 
-
+	for (int i = 0; i < NumArr; i=+2)
+	{
+		Player[i].Fight (Player[i+1]);
+	}
 
 
 }
